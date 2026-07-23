@@ -12,7 +12,16 @@
   box-sizing: border-box;
 }
 
-.page-header {
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+li {
+  list-style: none;
+}
+
+.page-heading {
   margin-bottom: 46px;
 }
 

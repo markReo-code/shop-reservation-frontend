@@ -33,65 +33,56 @@ onMounted(async () => {
 </script>
 
 <template>
-  <main class="reservation-page">
-    <header class="page-header">
-      <div>
-        <p class="page-label">SHOP RESERVATION</p>
-        <h1 class="page-title">予約一覧</h1>
-        <div class="page-meta">
-          <p class="page-description">ショップの予約状況を管理します。</p>
-          <p v-if="!isLoading && !errorMessage" class="reservation-count">
-            {{ reservations.length }}<span class="reservation-count-unit">件</span>
-          </p>
-        </div>
+  <div class="page-heading">
+    <div>
+      <h1 class="page-title">予約一覧</h1>
+      <div class="page-meta">
+        <p class="page-description">ショップの予約状況を管理します。</p>
+        <p v-if="!isLoading && !errorMessage" class="reservation-count">
+          {{ reservations.length }}<span class="reservation-count-unit">件</span>
+        </p>
       </div>
-    </header>
-
-    <p v-if="isLoading" class="state-message">読み込み中です…</p>
-
-    <p v-else-if="errorMessage" class="state-message state-message--error">
-      {{ errorMessage }}
-    </p>
-
-    <p v-else-if="reservations.length === 0" class="state-message">予約はありません</p>
-
-    <div v-else class="reservation-table-container">
-      <table class="reservation-table">
-        <thead>
-          <tr>
-            <th scope="col">予約ID</th>
-            <th scope="col">お客様名</th>
-            <th scope="col">店舗名</th>
-            <th scope="col">予約日時</th>
-            <th scope="col">ステータス</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <tr v-for="reservation in reservations" :key="reservation.id">
-            <td>#{{ reservation.id }}</td>
-            <td>{{ reservation.customerName }}</td>
-            <td>{{ reservation.shopName }}</td>
-            <td>{{ formatReservedAt(reservation.reservedAt) }}</td>
-            <td>
-              <span :class="`status-badge status-badge--${reservation.status.toLowerCase()}`">{{
-                reservation.status
-              }}</span>
-            </td>
-          </tr>
-        </tbody>
-      </table>
     </div>
-  </main>
+  </div>
+
+  <p v-if="isLoading" class="state-message">読み込み中です…</p>
+
+  <p v-else-if="errorMessage" class="state-message state-message--error">
+    {{ errorMessage }}
+  </p>
+
+  <p v-else-if="reservations.length === 0" class="state-message">予約はありません</p>
+
+  <div v-else class="reservation-table-container">
+    <table class="reservation-table">
+      <thead>
+        <tr>
+          <th scope="col">予約ID</th>
+          <th scope="col">お客様名</th>
+          <th scope="col">店舗名</th>
+          <th scope="col">予約日時</th>
+          <th scope="col">ステータス</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr v-for="reservation in reservations" :key="reservation.id">
+          <td>#{{ reservation.id }}</td>
+          <td>{{ reservation.customerName }}</td>
+          <td>{{ reservation.shopName }}</td>
+          <td>{{ formatReservedAt(reservation.reservedAt) }}</td>
+          <td>
+            <span :class="`status-badge status-badge--${reservation.status.toLowerCase()}`">{{
+              reservation.status
+            }}</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </template>
 
 <style scoped>
-.reservation-page {
-  width: min(1120px, calc(100% - 48px));
-  margin: 0 auto;
-  padding: 64px 0;
-}
-
 .reservation-count {
   flex-shrink: 0;
   font-size: 20px;
